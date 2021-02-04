@@ -1,4 +1,4 @@
--# Default values for gitlab/gitlab chart
+# Default values for gitlab/gitlab chart
 
 ## NOTICE
 # Due to the scope and complexity of this chart, all possible values are
@@ -46,18 +46,13 @@ global:
     allowClusterRoles: true
   ## doc/charts/globals.md#configure-host-settings
   hosts:
-    domain: example.com
+    domain: fc277073030.com
     hostSuffix:
     https: true
     externalIP:
     ssh: ~
     gitlab: {}
-    minio:
-      ingress:
-        enable: false
-      name: gitlab-minio.fc277073030.com
-      tls:
-        enable: false
+    minio: {}
     registry: {}
     tls: {}
     smartcard: {}
@@ -649,11 +644,11 @@ upgradeCheck:
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
 certmanager:
-  createCustomResource: false
+  createCustomResource: true
   nameOverride: cert-manager
   # Install cert-manager chart. Set to false if you already have cert-manager
   # installed or if you are not using cert-manager.
-  install: false
+  install: true
   # Other cert-manager configurations from upstream
   # See https://github.com/jetstack/cert-manager/blob/master/deploy/charts/cert-manager/README.md#configuration
   rbac:
@@ -665,7 +660,7 @@ certmanager:
 ## doc/architecture/decisions.md#nginx-ingress
 ## Installation & configuration of charts/ingress-nginx:
 nginx-ingress:
-  enabled: false
+  enabled: true
   tcpExternalConfig: "true"
   controller:
     addHeaders:
@@ -717,7 +712,7 @@ nginx-ingress:
 ## Installation & configuration of stable/prometheus
 ## See requirements.yaml for current version
 prometheus:
-  install: false
+  install: true
   rbac:
     create: true
   alertmanager:
@@ -894,7 +889,7 @@ shared-secrets:
 ## Installation & configuration of gitlab/gitlab-runner
 ## See requirements.yaml for current version
 gitlab-runner:
-  install: false
+  install: true
   rbac:
     create: true
   runners:
