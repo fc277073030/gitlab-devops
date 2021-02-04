@@ -1,4 +1,4 @@
-# Default values for gitlab/gitlab chart
+-# Default values for gitlab/gitlab chart
 
 ## NOTICE
 # Due to the scope and complexity of this chart, all possible values are
@@ -34,7 +34,7 @@ global:
     labels: {}
 
   ## doc/installation/deployment.md#deploy-the-community-edition
-  edition: ee
+  edition: ce
 
   ## doc/charts/globals.md#gitlab-version
   # gitlabVersion: master
@@ -52,7 +52,12 @@ global:
     externalIP:
     ssh: ~
     gitlab: {}
-    minio: {}
+    minio:
+      ingress:
+        enable: false
+      name: gitlab-minio.fc277073030.com
+      tls:
+        enable: false
     registry: {}
     tls: {}
     smartcard: {}
@@ -61,7 +66,8 @@ global:
 
   ## doc/charts/globals.md#configure-ingress-settings
   ingress:
-    configureCertmanager: true
+    class: "nginx"
+    configureCertmanager: false
     annotations: {}
     enabled: true
     tls: {}
@@ -643,11 +649,11 @@ upgradeCheck:
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
 certmanager:
-  createCustomResource: true
+  createCustomResource: false
   nameOverride: cert-manager
   # Install cert-manager chart. Set to false if you already have cert-manager
   # installed or if you are not using cert-manager.
-  install: true
+  install: false
   # Other cert-manager configurations from upstream
   # See https://github.com/jetstack/cert-manager/blob/master/deploy/charts/cert-manager/README.md#configuration
   rbac:
@@ -659,7 +665,7 @@ certmanager:
 ## doc/architecture/decisions.md#nginx-ingress
 ## Installation & configuration of charts/ingress-nginx:
 nginx-ingress:
-  enabled: true
+  enabled: false
   tcpExternalConfig: "true"
   controller:
     addHeaders:
@@ -711,7 +717,7 @@ nginx-ingress:
 ## Installation & configuration of stable/prometheus
 ## See requirements.yaml for current version
 prometheus:
-  install: true
+  install: false
   rbac:
     create: true
   alertmanager:
@@ -888,7 +894,7 @@ shared-secrets:
 ## Installation & configuration of gitlab/gitlab-runner
 ## See requirements.yaml for current version
 gitlab-runner:
-  install: true
+  install: false
   rbac:
     create: true
   runners:
